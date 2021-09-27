@@ -1,0 +1,4 @@
+server:
+  servlet:
+    context-path: /zgu
+  port: 8081
