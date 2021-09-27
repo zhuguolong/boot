@@ -1,5 +1,8 @@
 package com.zgu.boot.common;
 
+/**
+ * 接口通用返回对象
+ */
 public class CommonResponse {
 
     private Integer code;
