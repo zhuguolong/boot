@@ -20,7 +20,7 @@ public class AuthenticationHeaderInterceptor implements HandlerInterceptor {
     public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) throws Exception {
         // 判断用户是否合法
         resolveToken(request);
-        return true;
+        return null != RequestUtil.getUserId();
     }
 
     private void resolveToken(HttpServletRequest request) {
