@@ -1,6 +1,9 @@
 package com.zgu.boot.interceptor;
 
+import com.alibaba.fastjson.JSONObject;
+import com.zgu.boot.common.CommonConstants;
 import com.zgu.boot.utils.RequestUtil;
+import com.zgu.boot.utils.ResultWrap;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +14,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import static org.springframework.util.StringUtils.hasText;
 
@@ -23,6 +28,14 @@ public class AuthenticationHeaderInterceptor implements HandlerInterceptor {
         resolveToken(request);
         if (null == RequestUtil.getUserId()) {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            response.setCharacterEncoding(CommonConstants.UTF_8);
+            response.setContentType("application/json; charset=utf-8");
+            try (PrintWriter out = response.getWriter()) {
+                String res = JSONObject.toJSON(ResultWrap.error(LOG, HttpStatus.UNAUTHORIZED.value(), "未认证！", null)).toString();
+                out.append(res);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return false;
         }
         return true;
