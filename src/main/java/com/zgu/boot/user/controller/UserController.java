@@ -3,6 +3,8 @@ package com.zgu.boot.user.controller;
 import com.zgu.boot.common.CommonResponse;
 import com.zgu.boot.user.entity.User;
 import com.zgu.boot.user.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 public class UserController {
 
-    private UserService userService;
+    private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
+
+    private final UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
@@ -31,12 +35,11 @@ public class UserController {
 
     @GetMapping("/async/{num}/{taskId}")
     public CommonResponse asyncTask(@PathVariable Long num, @PathVariable Long taskId) {
-        System.out.println(Thread.currentThread().getName() + ": start...");
+        LOG.info("{}: start...", Thread.currentThread().getName());
         for (int i = 0; i < num; i++) {
             userService.asyncTask(taskId);
         }
-        System.out.println(Thread.currentThread().getName() + ": end...");
-
+        LOG.info("{}: end...", Thread.currentThread().getName());
         return new CommonResponse(HttpStatus.OK.value(), Thread.currentThread().getName());
     }
 
