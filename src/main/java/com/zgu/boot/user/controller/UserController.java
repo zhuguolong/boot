@@ -7,10 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -23,6 +22,30 @@ public class UserController {
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    /**
+     * 用户 id 登录
+     * @param userId 用户id
+     * @param password 密码
+     * @return
+     */
+    @PostMapping("/login/id")
+    public CommonResponse login(String userId, String password) {
+        Map<String, Object> resMap = userService.login(userId, password);
+        return new CommonResponse(HttpStatus.OK.value(), "登陆成功！", resMap);
+    }
+
+    /**
+     * 手机号码登录
+     * @param phone 手机号码
+     * @param password 密码
+     * @return
+     */
+    @PostMapping("/login/phone")
+    public CommonResponse loginByPhone(String phone, String password) {
+        Map<String, Object> resMap = userService.loginByPhone(phone, password);
+        return new CommonResponse(HttpStatus.OK.value(), "登陆成功！", resMap);
     }
 
     @GetMapping("/info/{id}")

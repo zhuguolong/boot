@@ -12,9 +12,12 @@ public class CommonFilter implements Filter {
 
     private static final Logger LOG = LoggerFactory.getLogger(CommonFilter.class);
 
+    private FilterConfig filterConfig;
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        LOG.info("初始化 WebFilter : {}", filterConfig.getFilterName());
+        this.filterConfig = filterConfig;
+        LOG.info("init Filter... : {}", filterConfig.getFilterName());
     }
 
     @Override
@@ -36,7 +39,7 @@ public class CommonFilter implements Filter {
 
     @Override
     public void destroy() {
-        LOG.info("销毁过滤器");
+        LOG.info("destroy Filter... : {}", filterConfig.getFilterName());
     }
 
 }

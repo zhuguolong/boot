@@ -6,6 +6,8 @@ public class User {
 
     private String userName;
 
+    private String phone;
+
     public Long getId() {
         return id;
     }
@@ -22,11 +24,20 @@ public class User {
         this.userName = userName;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
+                ", phone='" + phone + '\'' +
                 '}';
     }
 }
