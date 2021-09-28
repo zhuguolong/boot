@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -20,7 +21,11 @@ public class AuthenticationHeaderInterceptor implements HandlerInterceptor {
     public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) throws Exception {
         // 判断用户是否合法
         resolveToken(request);
-        return null != RequestUtil.getUserId();
+        if (null == RequestUtil.getUserId()) {
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            return false;
+        }
+        return true;
     }
 
     private void resolveToken(HttpServletRequest request) {
