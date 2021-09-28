@@ -2,18 +2,18 @@ package com.zgu.boot.user.entity;
 
 public class User {
 
-    private Long id;
+    private Long userId;
 
     private String userName;
 
     private String phone;
 
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
@@ -35,7 +35,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "userId=" + userId +
                 ", userName='" + userName + '\'' +
                 ", phone='" + phone + '\'' +
                 '}';

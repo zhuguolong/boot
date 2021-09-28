@@ -1,6 +1,6 @@
 package com.zgu.boot.filter;
 
-import com.zgu.boot.common.Commons;
+import com.zgu.boot.common.CommonConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,8 +26,8 @@ public class CommonFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
 
         // 1、控制编码
-        request.setCharacterEncoding(Commons.UTF_8);
-        request.setCharacterEncoding(Commons.UTF_8);
+        request.setCharacterEncoding(CommonConstants.UTF_8);
+        request.setCharacterEncoding(CommonConstants.UTF_8);
         // 2、判断是否登录
 
         filterChain.doFilter(servletRequest, servletResponse);

@@ -1,17 +1,20 @@
 package com.zgu.boot.configuration;
 
 import com.zgu.boot.filter.CommonFilter;
+import com.zgu.boot.interceptor.AuthenticationHeaderInterceptor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 
 @Configuration
-public class ZguConfiguration {
+public class ZguConfiguration implements WebMvcConfigurer {
 
     /**
      * 主线程池
@@ -51,6 +54,20 @@ public class ZguConfiguration {
 
         filterRegistrationBean.setUrlPatterns(urls);
         return filterRegistrationBean;
+    }
+
+    @Bean
+    public AuthenticationHeaderInterceptor authenticationHeaderInterceptor() {
+        return new AuthenticationHeaderInterceptor();
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(authenticationHeaderInterceptor())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/user/login/id")
+                .excludePathPatterns("/user/login/phone")
+                .excludePathPatterns("/static/**");
     }
 
 }
