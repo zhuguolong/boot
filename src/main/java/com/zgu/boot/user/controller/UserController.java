@@ -50,7 +50,7 @@ public class UserController {
     @GetMapping("/info/{id}")
     public Object findUserInfo(@PathVariable Long id) {
         User user = new User();
-        user.setId(id);
+        user.setUserId(id);
         user.setUserName("张山");
         return ResultWrap.ok("查询成功！", user);
     }
