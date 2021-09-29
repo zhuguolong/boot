@@ -93,12 +93,12 @@ public class ResultWrap {
         return map;
     }
 
-    public static Map<String, Object> err(Logger logger, String respCode, String respMsg) {
-        return err(logger, respCode, respMsg, null);
+    public static Map<String, Object> error(Logger logger, String respCode, String respMsg) {
+        return error(logger, respCode, respMsg, null);
     }
 
 
-    public static Map<String, Object> err(Logger logger, String respCode, String respMsg, String result) {
+    public static Map<String, Object> error(Logger logger, String respCode, String respMsg, String result) {
         Map<String, Object> map = new HashMap<>();
 
         map.put(CommonConstants.RESULT, result);
