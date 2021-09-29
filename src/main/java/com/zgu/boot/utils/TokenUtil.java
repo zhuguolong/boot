@@ -24,7 +24,8 @@ public class TokenUtil {
     public static String createToken(long userId, String phone) {
         return Jwts.builder()
                 .setSubject(CommonConstants.SUBJECT)
-                .setExpiration(new Date(new Date().getTime() + 1000L * 60 * 60 * 24 * 600))
+                // 一天
+                .setExpiration(new Date(new Date().getTime() + 1000L * 60 * 60 * 24))
                 .claim(CommonConstants.USER_ID, userId)
                 .claim(CommonConstants.PHONE, phone)
                 .signWith(SignatureAlgorithm.HS512, CommonConstants.SECRET_KEY).compact();

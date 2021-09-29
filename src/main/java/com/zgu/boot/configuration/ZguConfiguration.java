@@ -1,7 +1,9 @@
 package com.zgu.boot.configuration;
 
+import com.google.common.util.concurrent.RateLimiter;
 import com.zgu.boot.filter.CommonFilter;
-import com.zgu.boot.interceptor.AuthenticationHeaderInterceptor;
+import com.zgu.boot.interceptor.AuthenticationHandlerInterceptor;
+import com.zgu.boot.interceptor.RateLimiterInterceptor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
+import java.util.concurrent.TimeUnit;
 
 @Configuration
 public class ZguConfiguration implements WebMvcConfigurer {
@@ -57,14 +60,22 @@ public class ZguConfiguration implements WebMvcConfigurer {
     }
 
     @Bean
-    public AuthenticationHeaderInterceptor authenticationHeaderInterceptor() {
-        return new AuthenticationHeaderInterceptor();
+    public AuthenticationHandlerInterceptor authenticationHeaderInterceptor() {
+        return new AuthenticationHandlerInterceptor();
+    }
+
+    @Bean
+    public RateLimiterInterceptor rateLimiterInterceptor() {
+        return new RateLimiterInterceptor(RateLimiter.create(100, 1, TimeUnit.SECONDS));
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(rateLimiterInterceptor()).addPathPatterns("/**");
+
         registry.addInterceptor(authenticationHeaderInterceptor())
                 .addPathPatterns("/**")
+
                 .excludePathPatterns("/user/login/id")
                 .excludePathPatterns("/user/login/phone")
                 .excludePathPatterns("/static/**");

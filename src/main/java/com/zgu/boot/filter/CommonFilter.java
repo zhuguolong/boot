@@ -1,12 +1,12 @@
 package com.zgu.boot.filter;
 
-import com.zgu.boot.common.CommonConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class CommonFilter implements Filter {
 
@@ -26,8 +26,8 @@ public class CommonFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
 
         // 1、控制编码
-        request.setCharacterEncoding(CommonConstants.UTF_8);
-        request.setCharacterEncoding(CommonConstants.UTF_8);
+        request.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        request.setCharacterEncoding(StandardCharsets.UTF_8.name());
         // 2、判断是否登录
 
         filterChain.doFilter(servletRequest, servletResponse);

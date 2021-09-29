@@ -19,9 +19,12 @@ import java.io.PrintWriter;
 
 import static org.springframework.util.StringUtils.hasText;
 
-public class AuthenticationHeaderInterceptor implements HandlerInterceptor {
+/**
+ * 权限拦截器
+ */
+public class AuthenticationHandlerInterceptor implements HandlerInterceptor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AuthenticationHeaderInterceptor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AuthenticationHandlerInterceptor.class);
 
     public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) throws Exception {
         // 判断用户是否合法
