@@ -66,7 +66,7 @@ public class ZguConfiguration implements WebMvcConfigurer {
 
     @Bean
     public RateLimiterInterceptor rateLimiterInterceptor() {
-        return new RateLimiterInterceptor(RateLimiter.create(100));
+        return new RateLimiterInterceptor(RateLimiter.create(150));
     }
 
     @Override
