@@ -76,7 +76,7 @@ public class TokenUtil {
         try {
             userId = TokenUtil.getUserId(token);
         } catch (Exception e) {
-            return -1;
+            return 0;
         }
         return userId;
 
