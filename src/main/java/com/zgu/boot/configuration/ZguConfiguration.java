@@ -66,16 +66,14 @@ public class ZguConfiguration implements WebMvcConfigurer {
 
     @Bean
     public RateLimiterInterceptor rateLimiterInterceptor() {
-        return new RateLimiterInterceptor(RateLimiter.create(100, 1, TimeUnit.SECONDS));
+        return new RateLimiterInterceptor(RateLimiter.create(100));
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(rateLimiterInterceptor()).addPathPatterns("/**");
-
         registry.addInterceptor(authenticationHeaderInterceptor())
                 .addPathPatterns("/**")
-
                 .excludePathPatterns("/user/login/id")
                 .excludePathPatterns("/user/login/phone")
                 .excludePathPatterns("/static/**");
