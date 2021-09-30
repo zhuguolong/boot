@@ -74,6 +74,7 @@ public class ZguConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(rateLimiterInterceptor()).addPathPatterns("/**");
         registry.addInterceptor(authenticationHeaderInterceptor())
                 .addPathPatterns("/**")
+                .excludePathPatterns("/user/register")
                 .excludePathPatterns("/user/login/id")
                 .excludePathPatterns("/user/login/phone")
                 .excludePathPatterns("/static/**");

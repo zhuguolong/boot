@@ -4,6 +4,49 @@ server:
   port: 8081
 
 spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://192.168.44.128:3306/boot?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT
+      username: root
+      password: 123456
+      # 初始化时建立物理连接的个数
+      initial-size: 5
+      # 最大连接池数量
+      max-active: 20
+      # 最小连接池数量
+      min-idle: 5
+      # 获取连接时最大等待时间，单位毫秒
+      max-wait: 3000
+      # Spring监控AOP切入点，如 x.y.z.service.*,配置多个英文逗号分隔
+      aop-patterns: com.zgu.boot.*.service.*
+      # 监控统计的stat,以及防sql注入的wall
+      filters: stat,wall
+      # 监控配置
+      web-stat-filter:
+        # 是否启用 StatFilter 默认值 true
+        enabled: true
+        # 添加过滤规则
+        url-pattern: /*
+        # 忽略过滤的格式
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+      stat-view-servlet:
+        # 是否启用 StatViewServlet 默认值 true
+        enabled: true
+        # 访问路径为 /druid 时，跳转到 StatViewServlet
+        url-pattern: /druid/*
+        # 是否能够重置数据
+        reset-enable: false
+        # 需要账号密码才能访问控制台，默认为root
+        login-username: druid
+        login-password: druid
+        # IP白名单
+        allow: 127.0.0.1
+        # IP黑名单（共同存在时，deny 优先于 allow）
+
+
+
   redis:
     host: 127.0.0.1
     port: 6379
@@ -21,3 +64,10 @@ spring:
         min-idle: 0
     # 超时时间（毫秒）
     timeout: 5000
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+    call-setters-on-nulls: true
+  mapper-locations: classpath*:mapper/*.xml

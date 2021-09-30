@@ -29,11 +29,11 @@ public class ResultWrap {
      * @return 返回一个Map表示正确返回给定的消息和数据结果。
      */
     public static Map<String, Object> ok(String message, Object result) {
-        return ImmutableMap.of(
-                CommonConstants.RESP_CODE, CommonConstants.OK,
-                CommonConstants.RESP_MESSAGE, message,
-                CommonConstants.RESULT, result
-        );
+        Map<String, Object> map = new HashMap<>();
+        map.put(CommonConstants.RESULT, result);
+        map.put(CommonConstants.RESP_CODE, CommonConstants.OK);
+        map.put(CommonConstants.RESP_MESSAGE, message);
+        return map;
     }
 
     public static Map<String, String> info(Logger logger, String respCode, String respMsg) {

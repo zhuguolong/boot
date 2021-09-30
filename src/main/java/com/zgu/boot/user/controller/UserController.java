@@ -24,6 +24,18 @@ public class UserController {
     }
 
     /**
+     * 注册
+     * @param phone 手机号码
+     * @param password 密码
+     * @return 用户信息、菜单等
+     */
+    @PostMapping("/register")
+    public Object register(String phone, String password) {
+        Map<String, Object> resMap = userService.register(phone, password);
+        return ResultWrap.ok("注册成功！", resMap);
+    }
+
+    /**
      * 用户 id 登录
      * @param userId 用户id
      * @param password 密码

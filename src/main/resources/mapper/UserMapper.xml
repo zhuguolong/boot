@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.zgu.boot.user.mapper.UserMapper">
+
+    <resultMap id = "userInfo" type = "com.zgu.boot.user.entity.User">
+        <result column = "USER_ID" property = "userId" />
+        <result column = "USER_NAME" property = "userName" />
+        <result column = "PHONE" property = "phone" />
+    </resultMap>
+
+    <select id = "findUserByPhone" resultMap = "userInfo">
+        SELECT * FROM t_user WHERE PHONE = #{phone}
+    </select>
+</mapper>

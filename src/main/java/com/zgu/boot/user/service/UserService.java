@@ -9,4 +9,6 @@ public interface UserService {
     Map<String, Object> login(String userId, String password);
 
     Map<String, Object> loginByPhone(String phone, String password);
+
+    Map<String, Object> register(String phone, String password);
 }
