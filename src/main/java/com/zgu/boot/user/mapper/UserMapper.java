@@ -8,5 +8,6 @@ import org.apache.ibatis.annotations.Param;
 public interface UserMapper {
 
     User findUserByPhone(@Param("phone") String phone);
-    
+
+    void addUser(User user);
 }

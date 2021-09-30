@@ -7,8 +7,15 @@
         <result column = "USER_NAME" property = "userName" />
         <result column = "PHONE" property = "phone" />
     </resultMap>
+    <insert id="addUser">
+        INSERT
+        INTO
+            T_USER (USER_NAME, PHONE, PASSWORD, CREATE_TIME)
+        VALUES
+               (#{userName}, #{phone}, #{password}, #{createTime})
+    </insert>
 
     <select id = "findUserByPhone" resultMap = "userInfo">
-        SELECT * FROM t_user WHERE PHONE = #{phone}
+        SELECT * FROM T_USER WHERE PHONE = #{phone}
     </select>
 </mapper>
