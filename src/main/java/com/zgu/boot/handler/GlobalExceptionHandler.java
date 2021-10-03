@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseBody
 @ControllerAdvice
-public class ExceptionHandlerAdvice {
+public class GlobalExceptionHandler {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ExceptionHandlerAdvice.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = RuntimeException.class)
