@@ -19,7 +19,7 @@ public class ExceptionHandlerAdvice {
     @ExceptionHandler(value = RuntimeException.class)
     public CommonResponse runtimeException(RuntimeException e) {
         LOG.error("异常信息：", e);
-        return new CommonResponse((HttpStatus.INTERNAL_SERVER_ERROR.value()), "服务器内部异常！", e);
+        return new CommonResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "服务器内部异常！", e);
     }
 
 }
